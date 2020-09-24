@@ -32,6 +32,8 @@ public class App {
 				c.dataNasc = controle.texto();
 				System.out.println("Insira o gênero (F/M): ");
 				c.genero = controle.texto();
+				System.out.println("Insira os serviços utilizados: ");
+				c.servicos.add(controle.texto());
 				cadastros.add(c);
 				break;
 				
@@ -39,11 +41,10 @@ public class App {
 				String nomeEdit;
 				System.out.println("Digite o nome para edição: ");
 				nomeEdit = controle.texto();
-				//Cliente cli = new Cliente();
+				String nomeFor = "";
 				for(Cliente cli: cadastros) {
-					System.out.println("entrou no for");
-					if(cli.nome == nomeEdit) {
-						System.out.println("Entrou no IF");
+					nomeFor = cli.getNome();
+					if(nomeFor.equals(nomeEdit)) {
 						do {
 							Menu.mostrarEdicao();
 							escolhaEdit = controle.opcao();
@@ -64,6 +65,9 @@ public class App {
 								System.out.println("Digite o novo gênero (F/M): ");
 								cli.genero = controle.texto();
 								break;
+							case 5:
+								System.out.println("Digite os novos serviços adquiridos: ");
+								cli.servicos.add(controle.texto());
 							case 0: break;
 							default: System.out.println("Opção inválida!");
 							}
@@ -72,7 +76,17 @@ public class App {
 				}
 				break;
 			case 3:
-				System.out.println("Excluir!");
+				nomeEdit = "";
+				System.out.println("Digite o nome para exclusão de cadastro: ");
+				nomeEdit = controle.texto();
+				for(int i=0; i < cadastros.size(); i++){
+					c = cadastros.get(i);
+					
+					if(c.getNome().equals(nomeEdit)) {
+						cadastros.remove(c);
+						break;
+					}
+				}
 				break;
 			case 4:
 				cadastros.forEach(pessoa -> System.out.println(pessoa));
@@ -81,10 +95,26 @@ public class App {
 				}
 				break;
 			case 5:
-				System.out.println("Listar por gênero!");
+				String generoList;
+				System.out.println("Digite o gênero (F/M): ");
+				generoList = controle.texto();
+				for(int i = 0; i < cadastros.size(); i++) {
+					c = cadastros.get(i);
+					if(c.getGenero().equals(generoList)) {
+						System.out.println(c);
+					}
+				}
 				break;
 			case 6: 
-				System.out.println("Listar serviços");
+				String nomeServ;
+				System.out.println("Digite o nome do cliente: ");
+				nomeServ = controle.texto();
+				for(int i = 0; i < cadastros.size(); i++) {
+					c = cadastros.get(i);
+					if(c.getNome().equals(nomeServ)) {
+						System.out.println("Cliente: " + c.nome + "\nServiços: " + c.servicos);
+					}
+				}
 				break;
 			case 7: 
 				System.out.println("Relatórios!");
