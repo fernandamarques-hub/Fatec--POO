@@ -2,6 +2,7 @@ package org.fatec;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
 public class Cliente {
 	public String nome;
@@ -26,7 +27,15 @@ public class Cliente {
 		return dataNasc;
 	}
 	
+	@SuppressWarnings("serial")
+public class Cliente implements Serializable {
+	public String nome;
+	public String telefone;
+	public String dataNasc;
+	public Strig genero;
+	public Strig servicos;
 	@Override
+	
 	public String toString() {
 		String delimitador = "-------------------------";
 		String info = "Nome: " + nome + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nGênero: " + genero + "\nServiços utilizados: " + servicos;
