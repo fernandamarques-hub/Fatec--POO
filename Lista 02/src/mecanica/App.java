@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import mecanica.Cliente;
+import mecanica.Cliente; //Importação das classes utilizadas
 import mecanica.Controle;
 import mecanica.Menu;
 
@@ -13,20 +13,20 @@ public class App {
 
 	public static void main(String[] args)  throws Exception{
 		
-String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
+			String caminho = "D:\\Documentos\\Desktop\\Tarefas 3ADS\\lista1";//Caminho onde ficará salvo o arquivo de registro
 		
-		Controle controle = new Controle();
+		Controle controle = new Controle();//Criação de leitor de input através da classe Controle
 		
 		List<Cliente> cadastros = new ArrayList<>();
 		
-		int escolha;
+		String escolha;
 		
 		do {
-			Menu.mostrarMenu();
+			Menu.mostrarMenu();//Chamada da classe Menu
 			escolha = controle.opcao();
 			
-			switch(escolha) {
-			case 1:
+			switch(escolha) {//Operações consequentes do Menu
+			case "1"://Opção Cadastro de Cliente
 				Cliente c = new Cliente();
 				System.out.println("Insira o nome: ");
 				c.nome = controle.texto();
@@ -36,18 +36,18 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 				c.endereco = controle.texto();
 				System.out.println("Insira o CPF: ");
 				c.cpf = controle.texto();
-				cadastros.add(c);
+				cadastros.add(c);//Adicionando cliente ao cadastro
 				System.out.println("Cadastro realizado com sucesso!!");
-				Thread.sleep(2000);
+				Thread.sleep(2000);//Timer de 2 segundos
 				
 				break;
 				
-			case 2:
+			case "2"://Opção Cadastro de Veículo
 				String cpfOwn1;
 				System.out.println("Insira o CPF do proprietário do veículo: ");
 				cpfOwn1 = controle.texto();
 				String cpfFor1 = "";
-				for(Cliente cli: cadastros) {
+				for(Cliente cli: cadastros) {//Busca pelo CPF do cliente...
 					cpfFor1 = cli.getCpf();
 					if(cpfFor1.equals(cpfOwn1)) {
 						Veiculo vei = new Veiculo();
@@ -59,13 +59,13 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 						vei.anofabricacao = controle.texto();
 						System.out.println("Insira o preço do veículo: ");
 						vei.preco = controle.texto();
-						cli.veiculos.add(vei);
+						cli.veiculos.add(vei);//Adicionando veículo ao cadastro
 						System.out.println("Cadastro realizado com sucesso!!");
 						Thread.sleep(2000);}}
 				
 				break;
 				
-			case 3:
+			case "3"://Opção de Agendamento
 				String cpfOwn2;
 				String placaVei1;
 				System.out.println("Insira o CPF do proprietário do veículo: ");
@@ -77,14 +77,14 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 					if(cpfFor2.equals(cpfOwn2)) {
 						System.out.println("Insira a placa do veículo: ");
 						placaVei1 = controle.texto();
-						for(Veiculo vei: cli.veiculos) {
+						for(Veiculo vei: cli.veiculos) {//Busca pela placa do veículo...
 							placaFor1 = vei.getPlaca();
 							if(placaFor1.equals(placaVei1)) {
 								Servico serv = new Servico();
 								String a;
 								System.out.println("Qual serviço deseja agendar?(m-manuntenção/r-revisão): ");
 								a="";
-								while(!a.equals("m")&&!a.equals("r")) {
+								while(!a.equals("m")&&!a.equals("r")) {//Verificação de tipo de serviço válido
 									a = controle.texto();
 									if(!a.equals("m")&&!a.equals("r")) {
 										System.out.println("**Escolha Inválida!!**");
@@ -96,7 +96,7 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 								serv.data = controle.texto();
 								System.out.println("Insira o horario para agendamento: ");
 								serv.horario = controle.texto();
-								vei.servicos.add(serv);
+								vei.servicos.add(serv);//Adicionando serviço ao cadastro
 								System.out.println("Agendamento realizado com sucesso!!");
 								Thread.sleep(2000);
 								}
@@ -106,7 +106,7 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 				
 				break;
 				
-			case 4:
+			case "4"://Alterar agendamento
 				String tipofor1;
 				String cpfOwn3;
 				String placaVei2;
@@ -125,14 +125,14 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 								String a;
 								System.out.println("Qual serviço deseja reagendar?(m-manuntenção/r-revisão): ");
 								a="";
-								while(!a.equals("m")&&!a.equals("r")) {
+								while(!a.equals("m")&&!a.equals("r")) {//Verificação de tipo de serviço válido
 									a = controle.texto();
 									if(!a.equals("m")&&!a.equals("r")) {
 										System.out.println("**Escolha Inválida!!**");
 										System.out.println("Qual serviço deseja reagendar?(m-manuntenção/r-revisão): ");
 									}
 								}
-								for(Servico serv: vei.servicos) {
+								for(Servico serv: vei.servicos) {//Busca pelo tipo do serviço
 									tipofor1 = serv.getTipo();
 									if(tipofor1.equals(a)) {
 										System.out.println("Insira a nova data para agendamento: ");
@@ -151,7 +151,7 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 				
 				break;
 				
-			case 5:
+			case "5"://Cancelar agendamento
 				String tipofor2;
 				String cpfOwn4;
 				String placaVei3;
@@ -180,7 +180,7 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 								for(Servico serv: vei.servicos) {
 									tipofor2 = serv.getTipo();
 									if(tipofor2.equals(a)) {
-										vei.servicos.remove(serv);
+										vei.servicos.remove(serv);//Remoção do serviço agendado
 										System.out.println("Serviço cancelado com sucesso!!");
 										Thread.sleep(2000);
 										
@@ -194,7 +194,7 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 						}
 					}
 				break;
-			case 6:
+			case "6"://Relatório de serviços
 				String cpfOwn5;
 				String placaVei4;
 				System.out.println("Insira o CPF do proprietário do veículo: ");
@@ -209,7 +209,7 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 						for(Veiculo vei: cli.veiculos) {
 							placaFor4 = vei.getPlaca();
 							if(placaFor4.equals(placaVei4)) {
-								for(Servico serv: vei.servicos) {
+								for(Servico serv: vei.servicos) {//Exibição dos serviços agendados
 									System.out.println("Tipo do serviço: "+serv.tipo);
 									System.out.println("Data do serviço: "+serv.data);
 									System.out.println("Horário do serviço: "+serv.horario);
@@ -221,13 +221,13 @@ String caminho = "C:\\Users\\jodan\\Documents\\FATEC\\FATEC - 3º Semestre";
 					}
 				break;
 				
-				case 0:
+				case "0":
 					
 					break;
-				default: System.out.println("Opção Inválida!"); 
+				default: System.out.println("Opção Inválida!"); //Mensagem de Erro
 				}
 			
-			}while(escolha != 0);
+			}while(!escolha.equals("0"));
 		
 		FileOutputStream canal = new FileOutputStream(caminho);
 		ObjectOutputStream escritor = new ObjectOutputStream(canal);

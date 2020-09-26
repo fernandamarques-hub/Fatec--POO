@@ -9,8 +9,8 @@ private Scanner leitor;
 		leitor = new Scanner(System.in);
 	}
 	
-	public synchronized int opcao() {
-		int op = leitor.nextInt();
+	public synchronized String opcao() {
+		String op = leitor.nextLine();
 		leitor = leitor.reset();
 		return op;
 	}
