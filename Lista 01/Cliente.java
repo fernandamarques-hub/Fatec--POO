@@ -1,10 +1,11 @@
 package org.fatec;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
 
-public class Cliente {
+@SuppressWarnings("serial")
+public class Cliente implements Serializable{
 	public String nome;
 	public String telefone;
 	public String dataNasc;
@@ -27,18 +28,10 @@ public class Cliente {
 		return dataNasc;
 	}
 	
-	@SuppressWarnings("serial")
-public class Cliente implements Serializable {
-	public String nome;
-	public String telefone;
-	public String dataNasc;
-	public Strig genero;
-	public Strig servicos;
 	@Override
-	
 	public String toString() {
 		String delimitador = "-------------------------";
 		String info = "Nome: " + nome + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nGênero: " + genero + "\nServiços utilizados: " + servicos;
-		return "\n" + delimitador + "\n" + info + "\n" + delimitador + "\n";
+		return "\n" + delimitador + "\n" + info + "\n" + delimitador;
 	}
 }
