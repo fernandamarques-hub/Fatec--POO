@@ -2,6 +2,7 @@ package wb;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -10,15 +11,15 @@ public class App {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws Exception {
 		// caminho onde vai salvar o cadastro de clientes
-		String caminho = "D:\\Documentos\\ADS - Fatec\\3º semestre\\Programação Orientada à Objetos\\Lista 1 - POO\\unidades";
+		String caminho = "D:\\Documentos\\ADS - Fatec\\3Âº semestre\\ProgramaÃ§Ã£o Orientada Ã  Objetos\\Lista 1 - POO\\unidades";
 		
-		// iniciando o controle para receber as informações pelo teclado
+		// iniciando o controle para receber as informaÃ§Ãµes pelo teclado
 		Controle controle = new Controle();
 		
 		// Lista para armazenar todas as unidades (lojas)
 		List<Unidade> unidades = new ArrayList<>();
 		
-		//variáveis de controle para sair dos menus
+		//variÃ¡veis de controle para sair dos menus
 		int escolha, escolha2, escolha3, escolhaEdit;
 		String loja, resp;
 		
@@ -37,7 +38,7 @@ public class App {
 			case 2: //Listar Unidades
 				unidades.forEach(uni -> System.out.println(uni));
 				if(unidades.isEmpty()) {
-					System.out.println("Não há unidades cadastradas!");
+					System.out.println("NÃ£o hÃ¡ unidades cadastradas!");
 				}
 				break;
 				
@@ -48,7 +49,7 @@ public class App {
 					u = unidades.get(i);
 
 					if(u.getNome().toLowerCase().equals(loja)) {
-						System.out.println("Essa é a unidade " + u.nome + " ?, digite S ou N:");
+						System.out.println("Essa Ã© a unidade " + u.nome + " ?, digite S ou N:");
 						resp = controle.texto().toLowerCase();
 						if(resp.equals("s")) {
 							do {
@@ -64,16 +65,14 @@ public class App {
 									c.telefone = controle.texto();
 									System.out.println("Insira a data de nascimento (dd/mm/aaaa): ");
 									c.dataNasc = controle.texto();
-									System.out.println("Insira o gênero (F/M): ");
+									System.out.println("Insira o gÃªnero (F/M): ");
 									c.genero = controle.texto();
-									System.out.println("Insira os serviços utilizados: ");
-									c.servicos.add(controle.texto());
 									u.agenda.add(c);;
 									break;
 									
 								case 2: //Editar cadastro de cliente
 									String nomeEdit;
-									System.out.println("Digite o nome para edição: ");
+									System.out.println("Digite o nome para ediÃ§Ã£o: ");
 									nomeEdit = controle.texto().toLowerCase();
 									String nomeFor = "";
 									for(Cliente cli: u.agenda) {
@@ -102,19 +101,14 @@ public class App {
 														cli.dataNasc = controle.texto();
 														break;
 														
-													case 4: //Editar gênero
-														System.out.println("Digite o novo gênero (F/M): ");
+													case 4: //Editar gÃªnero
+														System.out.println("Digite o novo gÃªnero (F/M): ");
 														cli.genero = controle.texto();
-														break;
-														
-													case 5: //Adicionar serviços
-														System.out.println("Digite os novos serviços adquiridos: ");
-														cli.servicos.add(controle.texto());
 														break;
 														
 													case 0: break;
 													
-													default: System.out.println("Opção inválida!");
+													default: System.out.println("OpÃ§Ã£o invÃ¡lida!");
 													}
 												}while(escolhaEdit != 0);
 											}
@@ -124,7 +118,7 @@ public class App {
 									
 								case 3: //Remover cadastro de um cliente
 									nomeEdit = "";
-									System.out.println("Digite o nome para exclusão de cadastro: ");
+									System.out.println("Digite o nome para exclusÃ£o de cadastro: ");
 									nomeEdit = controle.texto().toLowerCase();
 									for(i=0; i < u.agenda.size(); i++){
 										c = u.agenda.get(i);
@@ -141,51 +135,104 @@ public class App {
 									}
 									break;
 									
-								case 4: //Listar clientes
-									u.agenda.forEach(pessoa -> System.out.println(pessoa));
-									if(u.agenda.isEmpty()) {
-										System.out.println("Não há cadastros!");
+								case 4: //Adicionar serviÃ§o Ã  um cliente
+									nomeEdit = "";
+									System.out.println("Digite o nome do cliente para inclusÃ£o do serviÃ§o: ");
+									nomeEdit = controle.texto().toLowerCase();
+									for(i=0; i < u.agenda.size(); i++){
+										c = u.agenda.get(i);
+										if(c.getNome().toLowerCase().equals(nomeEdit)) {
+											System.out.println("Digite o serviÃ§o: ");
+											c.servicosCli.add(controle.texto());
+										}	
 									}
 									break;
 									
-								case 5: //Listar clientes por gênero
-									int cont = 0;
-									String generoList;
-									System.out.println("Digite o gênero (F/M): ");
-									generoList = controle.texto().toLowerCase();
-									for(i = 0; i < u.agenda.size(); i++) {
-										c = u.agenda.get(i);
-										if(c.getGenero().toLowerCase().equals(generoList)) {
-											System.out.println(c);
-											cont++;
+								case 5: //Listar clientes
+//									u.agenda.forEach(pessoa -> System.out.println(pessoa));
+									if(u.agenda.isEmpty()) {
+										System.out.println("NÃ£o hÃ¡ cadastros!");
+									}
+									else {
+										List <String> lista = new ArrayList<String>();
+										for(i = 0; i < u.agenda.size(); i++) {
+											c = u.agenda.get(i);
+											lista.add(c.nome);
+										}
+										Collections.sort(lista);
+										System.out.println(lista);
+										nomeEdit = "";
+										for(i = 0; i < lista.size(); i++) {
+											nomeEdit = lista.get(i);
+											nomeEdit.toLowerCase();
+											//System.out.println(nomeEdit);
+											for(int j = 0; j < u.agenda.size(); j++) {
+												c = u.agenda.get(j);
+												//System.out.println(c.nome);
+												if(c.nome.toLowerCase().equals(nomeEdit)) {
+													System.out.println(c);
+												}
+											}
 										}
 									}
-									if(cont == 0) {
-										System.out.println("Não há cadastros com esse gênero!");
+									break;
+									
+								case 6: //Listar clientes por gÃªnero
+									int cont = 0;
+									List <String> lista3 = new ArrayList<String>();
+									String generoList;
+									if(u.agenda.isEmpty()) {
+										System.out.println("NÃ£o hÃ¡ cadastros!");
+									}
+									else {
+										System.out.println("Digite o gÃªnero (F/M): ");
+										generoList = controle.texto().toLowerCase();
+										for(i = 0; i < u.agenda.size(); i++) {
+											c = u.agenda.get(i);
+											if(c.getGenero().toLowerCase().equals(generoList)) {
+												lista3.add(c.nome);
+												cont++;
+											}
+										}
+										Collections.sort(lista3);
+										nomeEdit = "";
+										for(i = 0; i < lista3.size(); i++) {
+											nomeEdit = lista3.get(i);
+											nomeEdit.toLowerCase();
+											for(int j = 0; j < u.agenda.size(); j++) {
+												c = u.agenda.get(j);
+												if(c.nome.toLowerCase().equals(nomeEdit)) {
+													System.out.println(c);
+												}
+											}
+										}
+										if(cont == 0) {
+											System.out.println("NÃ£o hÃ¡ cadastros com esse gÃªnero!");
+										}
 									}
 									break;
 									
-								case 6:  //Listar serviços/produtos consumidos de um cliente
+								case 7:  //Listar serviÃ§os/produtos consumidos de um cliente
 									nomeEdit = "";
 									System.out.println("Digite o nome do cliente: ");
 									nomeEdit = controle.texto().toLowerCase();
 									for(i = 0; i < u.agenda.size(); i++) {
 										c = u.agenda.get(i);
 										if(c.getNome().toLowerCase().equals(nomeEdit)) {
-											System.out.println("Cliente: " + c.nome + "\nServiços: " + c.servicos);
+											System.out.println("Cliente: " + c.nome + "\nServiÃ§os: " + c.servicosCli);
 										}
 									}
 									break;
 									
-								case 7: //Entrar no Menu de Relatórios
+								case 8: //Entrar no Menu de RelatÃ³rios
 									do {
 										Menu.mostrarRelatorio();
 										escolha3 = controle.opcao();
 										switch(escolha3) {
-										case 1: //Idade média de todo o público de uma unidade
+										case 1: //Idade mÃ©dia de todo o pÃºblico de uma unidade
 											int media = 0;
 											if(u.agenda.isEmpty()) {
-												System.out.println("Não há cadastros!");
+												System.out.println("NÃ£o hÃ¡ cadastros!");
 											}
 											else {
 												for(i = 0; i < u.agenda.size(); i++) {
@@ -195,14 +242,14 @@ public class App {
 													System.out.println(idade);
 												}
 												media = media / (u.agenda.size());
-												System.out.println("A média de idade dessa unidade é: " + media);
+												System.out.println("A mÃ©dia de idade dessa unidade Ã©: " + media);
 											}
 											break;
 											
-										case 2: //Idade média do público para um determinado gênero
+										case 2: //Idade mÃ©dia do pÃºblico para um determinado gÃªnero
 											cont = 0;
 											generoList = "";
-											System.out.println("Digite o gênero (F/M): ");
+											System.out.println("Digite o gÃªnero (F/M): ");
 											generoList = controle.texto().toLowerCase();
 											media = 0;
 											for(i = 0; i < u.agenda.size(); i++) {
@@ -214,23 +261,35 @@ public class App {
 												}
 											}
 											if(cont == 0) {
-												System.out.println("Não há cadastros desse gênero!");
+												System.out.println("NÃ£o hÃ¡ cadastros desse gÃªnero!");
 											}
 											else {
 												media = media / cont;
-												System.out.println("A média de idade do gênero " + generoList + " é: " + media);
+												System.out.println("A mÃ©dia de idade do gÃªnero " + generoList + " Ã©: " + media);
 											}
 											break;
-										case 3: //Serviço mais procurado
+										case 3: //ServiÃ§o mais procurado
+											cont = 0;
+											List<String> lista2 = new ArrayList<>();
+											for(i = 0; i < u.agenda.size(); i++) {
+												c = u.agenda.get(i);
+												lista2.addAll(c.servicosCli);
+											}
+											Collections.sort(lista2);
+											for(i = 0; i < lista2.size(); i++) {
+												cont = Collections.frequency(lista2, lista2.get(i));
+												System.out.println(lista2.get(i) + " - " + cont);
+											}
+											
 											break;
 											
-										case 4: // Serviço mais procurado para um determinado gênero
+										case 4: // ServiÃ§o mais procurado para um determinado gÃªnero
 											break;
 											
 										case 0: //Sair do Menu
 											break;
 											
-										default: System.out.println("Opção inválida!");
+										default: System.out.println("OpÃ§Ã£o invÃ¡lida!");
 										}
 									}while(escolha3 != 0);
 									break;
@@ -238,7 +297,7 @@ public class App {
 								case 0: //Sair do Menu
 									break;
 									
-								default: System.out.println("Opção inválida!"); 
+								default: System.out.println("OpÃ§Ã£o invÃ¡lida!"); 
 									}
 								}while(escolha2 != 0);
 						}
@@ -247,12 +306,12 @@ public class App {
 			case 0: //Sair do Menu
 				break;
 				
-			default: System.out.println("Opção inválida!"); 				
+			default: System.out.println("OpÃ§Ã£o invÃ¡lida!"); 				
 			}			
 		}while(escolha != 0);
 	}
 	
-	//método para calcular idade:
+	//mÃ©todo para calcular idade:
 	public static int calcIdade(String dataNasc) {
 		String[] partes = dataNasc.split("/");
 		int diaNasc = Integer.valueOf(partes[0]);
