@@ -1,6 +1,8 @@
 package mecanica;
 
-public class Servico {
+import java.io.Serializable;
+
+public class Servico implements Serializable{
 	public String tipo;
 	public String data;
 	public String horario;

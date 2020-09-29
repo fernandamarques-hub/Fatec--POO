@@ -1,9 +1,10 @@
 package mecanica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Veiculo {
+public class Veiculo implements Serializable{
 	public String placa;
 	public String modelo;
 	public String anofabricacao;

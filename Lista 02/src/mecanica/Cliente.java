@@ -1,9 +1,10 @@
 package mecanica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
+public class Cliente implements Serializable{
 	public String nome;
 	public String telefone;
 	public String endereco;
