@@ -2,9 +2,7 @@ package wb;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class App {
@@ -26,8 +24,8 @@ public class App {
 		Serializavel serial = new Serializavel();
 		
 		//variáveis de controle para sair dos menus
-		int escolha, escolha2, escolha3, escolhaEdit;
-		String loja, resp;
+		int escolha, escolha2, escolha3;
+		String loja, resp, nomeEdit;
 		
 		
 		do {
@@ -41,10 +39,8 @@ public class App {
 			
 			switch(escolha) {
 			case 1: //cadastrar Unidade
-				Unidade u = new Unidade();
-				System.out.println("Digite o nome da unidade: ");
-				u.nome = controle.texto().toLowerCase();
-				unidades.add(u);
+				Cadastrador cad = new Cadastrador(unidades);
+				cad.cadastrarUnidade();
 				serial.salvar(unidades);
 				break;
 				
@@ -58,6 +54,7 @@ public class App {
 			case 3: //Entrar na Agenda de uma unidade
 				System.out.println("Digite o nome da unidade, para visualizar agenda:");
 				loja = controle.texto().toLowerCase();
+				Unidade u = new Unidade();
 				for(int i = 0; i < unidades.size(); i++) {
 					u = unidades.get(i);
 
@@ -71,79 +68,21 @@ public class App {
 								
 								switch(escolha2) {
 								case 1: //Cadastrar Clientes
-									Cadastrador cad = new Cadastrador(u);
-									cad.cadastrarCliente();
+									Cadastrador cad1 = new Cadastrador(u);
+									cad1.cadastrarCliente();
 									serial.salvar(unidades);
 									break;
 									
 								case 2: //Editar cadastro de cliente
-									String nomeEdit;
-									System.out.println("Digite o nome para edição: ");
-									nomeEdit = controle.texto().toLowerCase();
-									String nomeFor = "";
-									for(Cliente cli: u.agenda) {
-										nomeFor = cli.getNome().toLowerCase();
-										if(nomeFor.equals(nomeEdit)) {
-											System.out.println(cli);
-											System.out.println("\nDeseja editar esse cliente? (S/N)");
-											resp = controle.texto().toLowerCase();
-											if(resp.equals("s")) {
-												do {
-													Menu.mostrarEdicao();
-													escolhaEdit = controle.opcao();
-													switch(escolhaEdit) {
-													case 1: //Ediatr nome
-														System.out.println("Digite o novo nome: ");
-														cli.nome = controle.texto();
-														serial.salvar(unidades);
-														break;
-														
-													case 2: //Editar telefone
-														System.out.println("Digite o novo telefone: ");
-														cli.telefone = controle.texto();
-														serial.salvar(unidades);
-														break;
-														
-													case 3: //Editar data de nascimento
-														System.out.println("Digite a nova data de nascimento (dd/mm/aaaa): ");
-														cli.dataNasc = controle.texto();
-														serial.salvar(unidades);
-														break;
-														
-													case 4: //Editar gênero
-														System.out.println("Digite o novo gênero (F/M): ");
-														cli.genero = controle.texto();
-														serial.salvar(unidades);
-														break;
-														
-													case 0: break;
-													
-													default: System.out.println("Opção inválida!");
-													}
-												}while(escolhaEdit != 0);
-											}
-										}
-									}
+									EditorCli edit = new EditorCli(u);
+									edit.editarCliente();
+									serial.salvar(unidades);
 									break;
 									
 								case 3: //Remover cadastro de um cliente
-									nomeEdit = "";
-									System.out.println("Digite o nome para exclusão de cadastro: ");
-									nomeEdit = controle.texto().toLowerCase();
-									for(i=0; i < u.agenda.size(); i++){
-										c = u.agenda.get(i);
-										if(c.getNome().toLowerCase().equals(nomeEdit)) {
-											System.out.println(c);
-											System.out.println("\nDeseja excluir esse cliente? (S/N)");
-											resp = controle.texto().toLowerCase();
-											if(resp.equals("s")) {
-												u.agenda.remove(c);
-												serial.salvar(unidades);
-												break;
-											}
-											else {break;}
-										}
-									}
+									RemovedorCli remove = new RemovedorCli(u);
+									remove.removercliente();
+									serial.salvar(unidades);
 									break;
 									
 								case 4: //Adicionar serviço à um cliente
@@ -161,51 +100,13 @@ public class App {
 									break;
 									
 								case 5: //Listar clientes
-//									u.agenda.forEach(pessoa -> System.out.println(pessoa));
-									if(u.agenda.isEmpty()) {
-										System.out.println("Não há cadastros!");
-									}
-									else {
-										Collections.sort(u.agenda);
-										for(i = 0; i < u.agenda.size(); i++) {
-											System.out.println(u.agenda.get(i));
-										}
-									}
+									ListarCli list = new ListarCli(u);
+									list.listarCliente();
 									break;
 									
 								case 6: //Listar clientes por gênero
-									int cont = 0;
-									List <String> lista3 = new ArrayList<String>();
-									String generoList;
-									if(u.agenda.isEmpty()) {
-										System.out.println("Não há cadastros!");
-									}
-									else {
-										System.out.println("Digite o gênero (F/M): ");
-										generoList = controle.texto().toLowerCase();
-										for(i = 0; i < u.agenda.size(); i++) {
-											c = u.agenda.get(i);
-											if(c.getGenero().toLowerCase().equals(generoList)) {
-												lista3.add(c.nome);
-												cont++;
-											}
-										}
-										Collections.sort(lista3);
-										nomeEdit = "";
-										for(i = 0; i < lista3.size(); i++) {
-											nomeEdit = lista3.get(i);
-											nomeEdit.toLowerCase();
-											for(int j = 0; j < u.agenda.size(); j++) {
-												c = u.agenda.get(j);
-												if(c.nome.toLowerCase().equals(nomeEdit)) {
-													System.out.println(c);
-												}
-											}
-										}
-										if(cont == 0) {
-											System.out.println("Não há cadastros com esse gênero!");
-										}
-									}
+									ListarCli list2 = new ListarCli(u);
+									list2.listarPorGenero();
 									break;
 									
 								case 7:  //Listar serviços/produtos consumidos de um cliente
