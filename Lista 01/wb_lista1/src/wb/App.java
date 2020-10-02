@@ -1,5 +1,6 @@
 package wb;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -8,22 +9,33 @@ import java.util.List;
 
 public class App {
 
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws Exception {
-		// caminho onde vai salvar o cadastro de clientes
-		String caminho = "D:\\Documentos\\ADS - Fatec\\3º semestre\\Programação Orientada à Objetos\\Lista 1 - POO\\unidades";
 		
+		String caminho = "C:\\Users\\Feh\\Documents\\ADS - Fatec\\3º semestre\\Programação Orientada à Objetos\\Lista 1 - POO\\unidades.ser";
+				
 		// iniciando o controle para receber as informações pelo teclado
 		Controle controle = new Controle();
 		
+		//Criando um objeto Cliente c para usar dentro do código
+		Cliente c = new Cliente();
+		
 		// Lista para armazenar todas as unidades (lojas)
 		List<Unidade> unidades = new ArrayList<>();
+		
+		//Criando variáveis do tipo Serializavel para chamar dentro dos menus
+		Serializavel serial = new Serializavel();
 		
 		//variáveis de controle para sair dos menus
 		int escolha, escolha2, escolha3, escolhaEdit;
 		String loja, resp;
 		
+		
 		do {
+			File f = new File(caminho);
+			if(f.exists()) {
+				unidades = serial.carregar();
+			}
+			
 			Menu.cadastroUnidade();
 			escolha = controle.opcao();
 			
@@ -33,6 +45,7 @@ public class App {
 				System.out.println("Digite o nome da unidade: ");
 				u.nome = controle.texto().toLowerCase();
 				unidades.add(u);
+				serial.salvar(unidades);
 				break;
 				
 			case 2: //Listar Unidades
@@ -58,16 +71,9 @@ public class App {
 								
 								switch(escolha2) {
 								case 1: //Cadastrar Clientes
-									Cliente c = new Cliente();
-									System.out.println("Insira o nome: ");
-									c.nome = controle.texto();
-									System.out.println("Insira o telefone: ");
-									c.telefone = controle.texto();
-									System.out.println("Insira a data de nascimento (dd/mm/aaaa): ");
-									c.dataNasc = controle.texto();
-									System.out.println("Insira o gênero (F/M): ");
-									c.genero = controle.texto();
-									u.agenda.add(c);;
+									Cadastrador cad = new Cadastrador(u);
+									cad.cadastrarCliente();
+									serial.salvar(unidades);
 									break;
 									
 								case 2: //Editar cadastro de cliente
@@ -89,21 +95,25 @@ public class App {
 													case 1: //Ediatr nome
 														System.out.println("Digite o novo nome: ");
 														cli.nome = controle.texto();
+														serial.salvar(unidades);
 														break;
 														
 													case 2: //Editar telefone
 														System.out.println("Digite o novo telefone: ");
 														cli.telefone = controle.texto();
+														serial.salvar(unidades);
 														break;
 														
 													case 3: //Editar data de nascimento
 														System.out.println("Digite a nova data de nascimento (dd/mm/aaaa): ");
 														cli.dataNasc = controle.texto();
+														serial.salvar(unidades);
 														break;
 														
 													case 4: //Editar gênero
 														System.out.println("Digite o novo gênero (F/M): ");
 														cli.genero = controle.texto();
+														serial.salvar(unidades);
 														break;
 														
 													case 0: break;
@@ -128,6 +138,7 @@ public class App {
 											resp = controle.texto().toLowerCase();
 											if(resp.equals("s")) {
 												u.agenda.remove(c);
+												serial.salvar(unidades);
 												break;
 											}
 											else {break;}
@@ -144,6 +155,7 @@ public class App {
 										if(c.getNome().toLowerCase().equals(nomeEdit)) {
 											System.out.println("Digite o serviço: ");
 											c.servicosCli.add(controle.texto());
+											serial.salvar(unidades);
 										}	
 									}
 									break;
@@ -154,25 +166,9 @@ public class App {
 										System.out.println("Não há cadastros!");
 									}
 									else {
-										List <String> lista = new ArrayList<String>();
+										Collections.sort(u.agenda);
 										for(i = 0; i < u.agenda.size(); i++) {
-											c = u.agenda.get(i);
-											lista.add(c.nome);
-										}
-										Collections.sort(lista);
-										System.out.println(lista);
-										nomeEdit = "";
-										for(i = 0; i < lista.size(); i++) {
-											nomeEdit = lista.get(i);
-											nomeEdit.toLowerCase();
-											//System.out.println(nomeEdit);
-											for(int j = 0; j < u.agenda.size(); j++) {
-												c = u.agenda.get(j);
-												//System.out.println(c.nome);
-												if(c.nome.toLowerCase().equals(nomeEdit)) {
-													System.out.println(c);
-												}
-											}
+											System.out.println(u.agenda.get(i));
 										}
 									}
 									break;
@@ -237,7 +233,7 @@ public class App {
 											else {
 												for(i = 0; i < u.agenda.size(); i++) {
 													c = u.agenda.get(i);
-													int idade = calcIdade(c.dataNasc);
+													int idade = CalculadorIdade.calcIdade(c.dataNasc);
 													media += idade;
 													System.out.println(idade);
 												}
@@ -255,7 +251,7 @@ public class App {
 											for(i = 0; i < u.agenda.size(); i++) {
 												c = u.agenda.get(i);
 												if(c.getGenero().toLowerCase().equals(generoList)) {
-													int idade = calcIdade(c.dataNasc);
+													int idade = CalculadorIdade.calcIdade(c.dataNasc);
 													media += idade;
 													cont++;
 												}
@@ -309,25 +305,5 @@ public class App {
 			default: System.out.println("Opção inválida!"); 				
 			}			
 		}while(escolha != 0);
-	}
-	
-	//método para calcular idade:
-	public static int calcIdade(String dataNasc) {
-		String[] partes = dataNasc.split("/");
-		int diaNasc = Integer.valueOf(partes[0]);
-		int mesNasc = Integer.valueOf(partes[1]);
-		int anoNasc = Integer.valueOf(partes[2]);
-		
-		GregorianCalendar hoje = new GregorianCalendar();
-		int diaH = hoje.get(Calendar.DAY_OF_MONTH);
-		int mesH = hoje.get(Calendar.MONTH)+ 1;
-		int anoH = hoje.get(Calendar.YEAR);
-		
-		int idade;
-		idade = anoH - anoNasc;
-		if((mesH < mesNasc) || ((mesH == mesNasc) && (diaH < diaNasc))) {
-			idade--;
-		}
-		return idade;
 	}
 }
