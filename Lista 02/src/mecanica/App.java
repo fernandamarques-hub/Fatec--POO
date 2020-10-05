@@ -20,7 +20,7 @@ public class App {
 		
 	
 		
-			String caminho = "D:\\Documentos\\Desktop\\Tarefas 3ADS\\lista1";//Caminho onde ficará salvo o arquivo de registro
+			String caminho = "D:\\Documentos\\Desktop\\Tarefas 3ADS\\lista1\\cadastros.ser";//Caminho onde ficará salvo o arquivo de registro
 		
 		Controle controle = new Controle();//Criação de leitor de input através da classe Controle
 		
@@ -47,13 +47,7 @@ public class App {
 				cadastros.add(c);//Adicionando cliente ao cadastro
 				System.out.println("Cadastro realizado com sucesso!!");
 				Thread.sleep(2000);//Timer de 2 segundos
-				
-			
-				
-				
-				
 				break;
-				
 			case "2"://Opção Cadastro de Veículo
 				String cpfOwn1;
 				System.out.println("Insira o CPF do proprietário do veículo: ");
@@ -76,15 +70,11 @@ public class App {
 						cli.veiculos.add(vei);//Adicionando veículo ao cadastro
 						System.out.println("Cadastro realizado com sucesso!!");
 						Thread.sleep(2000);}}
-
-						
 				if(pesqcpf<1) {
 					System.out.println("CPF não encontrado!!");
 					Thread.sleep(2000);
 				}
-				
 				break;
-				
 			case "3"://Opção de Agendamento
 				String cpfOwn2;
 				String placaVei1;
@@ -135,9 +125,7 @@ public class App {
 					System.out.println("CPF não encontrado!!");
 					Thread.sleep(2000);
 				}
-				
 				break;
-				
 			case "4"://Alterar agendamento
 				String tipofor1;
 				String cpfOwn3;
@@ -185,7 +173,6 @@ public class App {
 									System.out.println("Serviço não encontrado!!");
 									Thread.sleep(2000);
 								}
-
 								}
 							}
 						if(pesqplaca<1) {
@@ -198,9 +185,7 @@ public class App {
 					System.out.println("CPF não encontrado!!");
 					Thread.sleep(2000);
 				}
-				
 				break;
-				
 			case "5"://Cancelar agendamento
 				String tipofor2;
 				String cpfOwn4;
@@ -287,7 +272,6 @@ public class App {
 									System.out.println("Data do serviço: "+serv.data);
 									System.out.println("Horário do serviço: "+serv.horario);
 								}
-
 								}
 							}
 						if(pesqplaca<1) {
@@ -296,36 +280,27 @@ public class App {
 						}
 						}
 					}
-				if(pesqcpf<1) {
-					System.out.println("CPF não encontrado!!");
-					Thread.sleep(2000);
-				}
-				break;
-				
+					if(pesqcpf<1) {
+						System.out.println("CPF não encontrado!!");
+						Thread.sleep(2000);
+					}
+					break;
 				case "7":
-					FileOutputStream fout = new FileOutputStream("D:\\Documentos\\Desktop\\Tarefas 3ADS\\lista1\\a.txt");
+					FileOutputStream fout = new FileOutputStream(caminho);
 					ObjectOutputStream oos = new ObjectOutputStream(fout);
 					oos.writeObject(cadastros);
-
 					oos.close();
-
-					
 					break;
 				case "8":
-					FileInputStream fin = new FileInputStream("D:\\Documentos\\Desktop\\Tarefas 3ADS\\lista1\\a.txt");
+					FileInputStream fin = new FileInputStream(caminho);
 					ObjectInputStream ois = new ObjectInputStream(fin);
 					cadastros = (List<Cliente>) ois.readObject();
 					ois.close();
-					System.out.println(cadastros);
+					break;
+				case "0":
+					break;
 				default: System.out.println("Opção Inválida!"); //Mensagem de Erro
 				}
-			
-			}while(!escolha.equals("0"));
-		
-		FileOutputStream canal = new FileOutputStream(caminho);
-		ObjectOutputStream escritor = new ObjectOutputStream(canal);
-		escritor.writeObject(cadastros);
-		escritor.close();
-		System.out.println("Cadastros salvos com sucesso!");	
+			}while(!escolha.equals("0"));	
 	}	
 	}

@@ -11,6 +11,8 @@ public class Menu {
 			System.out.println("\n4. Alterar Agendamento:");
 			System.out.println("\n5. Cancelar Agendamento:");
 			System.out.println("\n6. Relatório de Serviços:");
+			System.out.println("\n7. Salvar Dados Cadastrados:");
+			System.out.println("\n8. Carregar Dados Cadastrados:");
 			System.out.println("\n0. Sair:");
 			System.out.println("\n******************************");
 		}
