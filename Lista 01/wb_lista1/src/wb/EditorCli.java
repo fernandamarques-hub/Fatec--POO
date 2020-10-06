@@ -11,7 +11,7 @@ public class EditorCli {
 		Controle controle = new Controle();
 		int escolhaEdit;
 		String nomeEdit, resp;
-		System.out.println("Digite o nome para edição: ");
+		System.out.println("Digite o nome para ediÃ§Ã£o: ");
 		nomeEdit = controle.texto().toLowerCase();
 		String nomeFor = "";
 		for(Cliente cli: u.agenda) {
@@ -43,15 +43,15 @@ public class EditorCli {
 							//serial.salvar(unidades);
 							break;
 							
-						case 4: //Editar gênero
-							System.out.println("Digite o novo gênero (F/M): ");
+						case 4: //Editar gÃªnero
+							System.out.println("Digite o novo gÃªnero (F/M): ");
 							cli.genero = controle.texto();
 							//serial.salvar(unidades);
 							break;
 							
 						case 0: break;
 						
-						default: System.out.println("Opção inválida!");
+						default: System.out.println("OpÃ§Ã£o invÃ¡lida!");
 						}
 					}while(escolhaEdit != 0);
 				}
