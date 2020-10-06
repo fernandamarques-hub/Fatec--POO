@@ -31,7 +31,7 @@ public class Cliente implements Serializable, Comparable<Cliente>{
 	@Override
 	public String toString() {
 		String delimitador = "-------------------------";
-		String info = "Nome: " + nome + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nGênero: " + genero;
+		String info = "Nome: " + nome + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nGÃªnero: " + genero;
 		return "\n" + delimitador + "\n" + info + "\n" + delimitador;
 	}
 
