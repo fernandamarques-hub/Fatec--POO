@@ -15,13 +15,13 @@ public class ListarServico {
 		this.servicos.add(new Servico("[3] - Design de sobrancelhas"));
 		this.servicos.add(new Servico("[4] - Corte de cabelo"));
 		this.servicos.add(new Servico("[5] - Pintura de cabelo"));
-		this.servicos.add(new Servico("[6] - Remoção de rugas"));
-		this.servicos.add(new Servico("[7] - Remoção de manchas na pele"));
-		this.servicos.add(new Servico("[8] - Aplicação de botox"));
-		this.servicos.add(new Servico("[9] - Tratamento para emagrecimento e redução de medidas"));	
+		this.servicos.add(new Servico("[6] - RemoÃ§Ã£o de rugas"));
+		this.servicos.add(new Servico("[7] - RemoÃ§Ã£o de manchas na pele"));
+		this.servicos.add(new Servico("[8] - AplicaÃ§Ã£o de botox"));
+		this.servicos.add(new Servico("[9] - Tratamento para emagrecimento e reduÃ§Ã£o de medidas"));	
 		this.servicos.add(new Servico("[10] - Modelagem e corte de barba"));
 		this.servicos.add(new Servico("[11] - Tratamento para queda de cabelo"));
-		this.servicos.add(new Servico("[12] - Produtos especializados"));		
+		this.servicos.add(new Servico("[12] - Produtos especializados"));	
 	}
 	
 	public void listServico() {
