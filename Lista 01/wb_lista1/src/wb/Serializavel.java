@@ -8,14 +8,8 @@ import java.util.List;
 
 public class Serializavel {
 	
-	String caminho = "C:\\Users\\Feh\\Documents\\ADS - Fatec\\3º semestre\\Programação Orientada à Objetos\\Lista 1 - POO\\unidades.ser";
+	String caminho = "C:\\Users\\Feh\\Documents\\ADS - Fatec\\3Âº semestre\\ProgramaÃ§Ã£o Orientada Ã  Objetos\\Lista 1 - POO\\unidades.ser";
 	
-//	List<Unidade> unidades = new ArrayList<>();
-	
-	
-//	public Serializavel(List<Unidade> unidades) {
-//		this.unidades = unidades;
-//	}
 
 	public void salvar(List<Unidade> unidades) throws Exception {
 		FileOutputStream canal = new FileOutputStream(caminho);
