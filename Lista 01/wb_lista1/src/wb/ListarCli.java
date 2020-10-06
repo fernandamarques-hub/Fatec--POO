@@ -13,7 +13,7 @@ public class ListarCli {
 	
 	public void listarCliente() {
 		if(u.agenda.isEmpty()) {
-			System.out.println("Não há cadastros!");
+			System.out.println("NÃ£o hÃ¡ cadastros!");
 		}
 		else {
 			Collections.sort(u.agenda);
@@ -24,39 +24,31 @@ public class ListarCli {
 	}
 	
 	public void listarPorGenero() {
-		String nomeEdit;
 		Controle controle = new Controle();
 		Cliente c = new Cliente();
 		int cont = 0;
-		List <String> lista3 = new ArrayList<String>();
-		String generoList;
+		List<Cliente> lista = new ArrayList<>();
+		String generoList = "";
 		if(u.agenda.isEmpty()) {
-			System.out.println("Não há cadastros!");
+			System.out.println("NÃ£o hÃ¡ cadastros!");
 		}
 		else {
-			System.out.println("Digite o gênero (F/M): ");
+			Collections.sort(u.agenda);
+			System.out.println("Digite o gÃªnero (F/M): ");
 			generoList = controle.texto().toLowerCase();
 			for(int i = 0; i < u.agenda.size(); i++) {
 				c = u.agenda.get(i);
-				if(c.getGenero().toLowerCase().equals(generoList)) {
-					lista3.add(c.nome);
+				if(c.genero.toLowerCase().equals(generoList)) {
+					lista.add(c);
+					System.out.println(c.nome);
 					cont++;
 				}
 			}
-			Collections.sort(lista3);
-			nomeEdit = "";
-			for(int i = 0; i < lista3.size(); i++) {
-				nomeEdit = lista3.get(i);
-				nomeEdit.toLowerCase();
-				for(int j = 0; j < u.agenda.size(); j++) {
-					c = u.agenda.get(j);
-					if(c.nome.toLowerCase().equals(nomeEdit)) {
-						System.out.println(c);
-					}
-				}
+			for(int i = 0; i < lista.size(); i++) {
+				System.out.println(lista.get(i));
 			}
 			if(cont == 0) {
-				System.out.println("Não há cadastros com esse gênero!");
+				System.out.println("NÃ£o hÃ¡ cadastros com esse gÃªnero!");
 			}
 		}
 	}
@@ -70,7 +62,7 @@ public class ListarCli {
 		for(int i = 0; i < u.agenda.size(); i++) {
 			c = u.agenda.get(i);
 			if(c.getNome().toLowerCase().equals(nomeEdit)) {
-				System.out.println("Cliente: " + c.nome + "\nServiços: " + c.servicosCli);
+				System.out.println("Cliente: " + c.nome + "\nServiÃ§os: " + c.servicosCli);
 			}
 		}
 	}
