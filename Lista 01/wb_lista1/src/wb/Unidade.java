@@ -11,7 +11,15 @@ public class Unidade implements Serializable{
 	public String nome;
 	public List<Cliente> agenda = new ArrayList<>();
 	public Map <String, Integer> servico = new HashMap<>();
-	
+	public Map <String, Integer> servicoF = new HashMap<>();
+	public Map <String, Integer> servicoM = new HashMap<>();
+
+	public Unidade(Map<String, Integer> servico, Map<String, Integer> servicoF, Map<String, Integer> servicoM) {
+		this.servico = servico;
+		this.servicoF = servicoF;
+		this.servicoM = servicoM;
+	}
+
 	public String getNome() {
 		return nome;
 	}
