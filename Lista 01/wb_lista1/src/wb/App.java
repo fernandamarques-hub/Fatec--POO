@@ -8,18 +8,18 @@ public class App {
 
 	public static void main(String[] args) throws Exception {
 		
-		String caminho = "C:\\Users\\Feh\\Documents\\ADS - Fatec\\3º semestre\\Programação Orientada à Objetos\\Lista 1 - POO\\unidades.ser";
+		String caminho = "C:\\Users\\Feh\\Documents\\ADS - Fatec\\3Âº semestre\\ProgramaÃ§Ã£o Orientada Ã  Objetos\\Lista 1 - POO\\unidades.ser";
 				
-		// iniciando o controle para receber as informações pelo teclado
+		// iniciando o controle para receber as informaÃ§Ãµes pelo teclado
 		Controle controle = new Controle();
 		
 		// Lista para armazenar todas as unidades (lojas)
 		List<Unidade> unidades = new ArrayList<>();
 		
-		//Criando variáveis do tipo Serializavel para chamar dentro dos menus
+		//Criando variÃ¡veis do tipo Serializavel para chamar dentro dos menus
 		Serializavel serial = new Serializavel();
 		
-		//variáveis de controle para sair dos menus
+		//variÃ¡veis de controle para sair dos menus
 		int escolha, escolha2;
 		String loja, resp;
 		
@@ -43,19 +43,19 @@ public class App {
 			case 2: //Listar Unidades
 				unidades.forEach(uni -> System.out.println(uni));
 				if(unidades.isEmpty()) {
-					System.out.println("Não há unidades cadastradas!");
+					System.out.println("NÃ£o hÃ¡ unidades cadastradas!");
 				}
 				break;
 				
 			case 3: //Entrar na Agenda de uma unidade
 				System.out.println("Digite o nome da unidade, para visualizar agenda:");
 				loja = controle.texto().toLowerCase();
-				Unidade u = new Unidade();
+				
 				for(int i = 0; i < unidades.size(); i++) {
-					u = unidades.get(i);
+					Unidade u = unidades.get(i);
 
 					if(u.getNome().toLowerCase().equals(loja)) {
-						System.out.println("Essa é a unidade " + u.nome + " ?, digite S ou N:");
+						System.out.println("Essa Ã© a unidade " + u.nome + " ?, digite S ou N:");
 						resp = controle.texto().toLowerCase();
 						if(resp.equals("s")) {
 							do {
@@ -81,9 +81,9 @@ public class App {
 									serial.salvar(unidades);
 									break;
 									
-								case 4: //Adicionar serviço à um cliente
+								case 4: //Adicionar serviÃ§o Ã  um cliente
 									AddServCli adicionar = new AddServCli(u);
-									adicionar.addServico(u.servico);
+									adicionar.addServico(u.servico, u.servicoF, u.servicoM);
 									serial.salvar(unidades);
 									break;
 									
@@ -92,25 +92,25 @@ public class App {
 									list.listarCliente();
 									break;
 									
-								case 6: //Listar clientes por gênero
+								case 6: //Listar clientes por gÃªnero
 									ListarCli list2 = new ListarCli(u);
 									list2.listarPorGenero();
 									break;
 									
-								case 7:  //Listar serviços/produtos consumidos de um cliente
+								case 7:  //Listar serviÃ§os/produtos consumidos de um cliente
 									ListarCli list3 = new ListarCli(u);
 									list3.listarServ();
 									break;
 									
-								case 8: //Entrar no Menu de Relatórios
+								case 8: //Entrar no Menu de RelatÃ³rios
 									Relatorios relat = new Relatorios(u);
-									relat.escolherRelatorio(u.servico);
+									relat.escolherRelatorio(u.servico, u.servicoF, u.servicoM);
 									break;
 									
 								case 0: //Sair do Menu
 									break;
 									
-								default: System.out.println("Opção inválida!"); 
+								default: System.out.println("OpÃ§Ã£o invÃ¡lida!"); 
 									}
 								}while(escolha2 != 0);
 						}
@@ -119,7 +119,7 @@ public class App {
 			case 0: //Sair do Menu
 				break;
 				
-			default: System.out.println("Opção inválida!"); 				
+			default: System.out.println("OpÃ§Ã£o invÃ¡lida!"); 				
 			}			
 		}while(escolha != 0);
 	}
