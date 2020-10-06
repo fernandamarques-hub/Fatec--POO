@@ -12,7 +12,7 @@ public class RemovedorCli {
 		Controle controle = new Controle();
 		String nomeEdit, resp;
 		Cliente c = new Cliente();
-		System.out.println("Digite o nome para exclus„o de cadastro: ");
+		System.out.println("Digite o nome para exclus√£o de cadastro: ");
 		nomeEdit = controle.texto().toLowerCase();
 		for(int i=0; i < u.agenda.size(); i++){
 			c = u.agenda.get(i);
