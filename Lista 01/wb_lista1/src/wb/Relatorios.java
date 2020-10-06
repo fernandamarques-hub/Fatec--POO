@@ -9,7 +9,7 @@ public class Relatorios {
 		this.u = u;
 	}
 	
-	public void escolherRelatorio(Map <String, Integer> servico) {
+	public void escolherRelatorio(Map <String, Integer> servico, Map <String, Integer> servicoF, Map <String, Integer> servicoM) {
 		Controle controle = new Controle();
 		Cliente c = new Cliente();
 		int escolha3;
@@ -17,27 +17,27 @@ public class Relatorios {
 			Menu.mostrarRelatorio();
 			escolha3 = controle.opcao();
 			switch(escolha3) {
-			case 1: //Idade média de todo o público de uma unidade
+			case 1: //Idade mÃ©dia de todo o pÃºblico de uma unidade
 				int media = 0;
 				if(u.agenda.isEmpty()) {
-					System.out.println("Não há cadastros!");
+					System.out.println("NÃ£o hÃ¡ cadastros!");
 				}
 				else {
 					for(int i = 0; i < u.agenda.size(); i++) {
 						c = u.agenda.get(i);
 						int idade = CalculadorIdade.calcIdade(c.dataNasc);
 						media += idade;
-						System.out.println(idade);
+						//System.out.println(idade);
 					}
 					media = media / (u.agenda.size());
-					System.out.println("A média de idade dessa unidade é: " + media);
+					System.out.println("A mÃ©dia de idade dessa unidade Ã©: " + media);
 				}
 				break;
 				
-			case 2: //Idade média do público para um determinado gênero
+			case 2: //Idade mÃ©dia do pÃºblico para um determinado gÃªnero
 				int cont = 0;
 				String generoList = "";
-				System.out.println("Digite o gênero (F/M): ");
+				System.out.println("Digite o gÃªnero (F/M): ");
 				generoList = controle.texto().toLowerCase();
 				media = 0;
 				for(int i = 0; i < u.agenda.size(); i++) {
@@ -49,27 +49,59 @@ public class Relatorios {
 					}
 				}
 				if(cont == 0) {
-					System.out.println("Não há cadastros desse gênero!");
+					System.out.println("NÃ£o hÃ¡ cadastros desse gÃªnero!");
 				}
 				else {
 					media = media / cont;
-					System.out.println("A média de idade do gênero " + generoList + " é: " + media);
+					System.out.println("A mÃ©dia de idade do gÃªnero " + generoList + " Ã©: " + media);
 				}
 				break;
-			case 3: //Serviço mais procurado
+			case 3: //ServiÃ§o mais procurado
+				String serv = "";
+				int valor = Integer.MIN_VALUE;
 				for(Map.Entry<String, Integer> par : servico.entrySet()) {
-					System.out.println(par.getKey());
-					System.out.println(par.getValue());
+					if(valor < par.getValue()) {
+						serv = par.getKey();
+						valor = par.getValue();
+					}
 				}
+				System.out.println("Servico: " + serv + " " + valor);
 				break;
 				
-			case 4: // Serviço mais procurado para um determinado gênero
+			case 4: // ServiÃ§o mais procurado para um determinado gÃªnero
+				generoList = "";
+				System.out.println("Digite o gÃªnero (F/M): ");
+				generoList = controle.texto().toLowerCase();
+				if(generoList.equals("f")) {
+					serv = "";
+					valor = Integer.MIN_VALUE;
+					for(Map.Entry<String, Integer> par : servicoF.entrySet()) {
+						if(valor < par.getValue()) {
+							serv = par.getKey();
+							valor = par.getValue();
+						}
+					}
+					System.out.println("Servico: " + serv + " " + valor);
+				}
+				else {
+					if(generoList.equals("m")) {
+						serv = "";
+						valor = Integer.MIN_VALUE;
+						for(Map.Entry<String, Integer> par : servicoM.entrySet()) {
+							if(valor < par.getValue()) {
+								serv = par.getKey();
+								valor = par.getValue();
+							}
+						}
+						System.out.println("Servico: " + serv + " " + valor);
+					}
+				}
 				break;
 				
 			case 0: //Sair do Menu
 				break;
 				
-			default: System.out.println("Opção inválida!");
+			default: System.out.println("OpÃ§Ã£o invÃ¡lida!");
 			}
 		}while(escolha3 != 0);
 	}
